@@ -2,8 +2,11 @@
   "name": "cdnbye-shaka",
   "version": "0.0.1",
   "description": "Save Your Bandwidth using WebRTC.",
-  "main": "index.js",
+  "main": "./dist/shaka-p2p-engine.min.js",
   "scripts": {
+    "git-push": "git add demo && git add package.json && git add README.md && git add Readme_zh.md && git commit -m 'init repo' && git push origin master",
+    "git-pull": "git pull origin master",
+    "publish": "npm publish",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
