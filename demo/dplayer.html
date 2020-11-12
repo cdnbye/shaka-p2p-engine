@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>DPlayer with shaka-p2p-engine</title>
+    <script src="//cdn.jsdelivr.net/npm/cdnbye-shaka@latest/dist/mux.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/shaka-player@2.5.10/dist/shaka-player.compiled.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/cdnbye-shaka@latest"></script>
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/dplayer@1.25.0/dist/DPlayer.min.css">
+    <script src="//cdn.jsdelivr.net/npm/dplayer@1.25.0"></script>
+    <style>
+        #dplayer {
+            width: 720px;
+            margin-left: auto;
+            margin-right: auto;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+<div id="dplayer"></div>
+<script>
+    shaka.polyfill.installAll();
+
+    window.dp = new DPlayer({
+        container: document.getElementById("dplayer"),
+        video: {
+            url: "https://dash.akamaized.net/akamai/bbb_30fps/bbb_30fps.mpd",
+            type: "customHlsOrDash",
+            customType: {
+                "customHlsOrDash": function (video, player) {
+
+                    const src = video.src; // Shaka Player changes video.src to blob URL
+                    const shakaPlayer = new shaka.Player(video);
+                    if (P2PEngineShaka.isSupported()) {
+                        new P2PEngineShaka(shakaPlayer, {
+                            logLevel: 'debug',
+                        });
+                    }
+                    const onError = function(error) { console.error("Error code", error.code, "object", error); }
+                    shakaPlayer.addEventListener("error", function(event) { onError(event.detail); });
+                    shakaPlayer.load(src).catch(onError);
+                }
+            }
+        }
+    });
+</script>
+</body>
+</html>

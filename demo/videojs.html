@@ -1,0 +1,24 @@
+<link href="http://vjs.zencdn.net/5.19.2/video-js.css" rel="stylesheet">
+<video id=example-video width=600 height=300 class="video-js vjs-default-skin" controls></video>
+<script src="https://cdn.jsdelivr.net/npm/shaka-player@2.5.10/dist/shaka-player.compiled.min.js"></script>
+<script src="https://vjs.zencdn.net/5.19.2/video.js"></script>
+<script src="//cdn.jsdelivr.net/npm/cdnbye-shaka@latest"></script>
+<script src="https://cdn.jsdelivr.net/npm/videojs-shaka@0.4.5/dist/videojs-shaka.min.js"></script>
+<script>
+    var player = videojs('example-video', {
+        techOrder: ['shaka'],
+        // shaka: {
+        //     debug: true
+        // }
+    });
+    new P2PEngineShaka(player.tech_.shaka_, {
+        logLevel: 'debug'
+    })
+    player.ready(function() {
+        player.src({
+            src: 'https://dash.akamaized.net/akamai/bbb_30fps/bbb_30fps.mpd',
+            type: 'application/dash+xml'
+        });
+        player.play();
+    });
+</script>

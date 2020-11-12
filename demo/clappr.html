@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Clappr player with shaka-p2p-engine (MPEG-DASH only)</title>
+    <script src="https://cdn.jsdelivr.net/npm/clappr@latest"></script>
+    <script src="//cdn.jsdelivr.net/npm/cdnbye-shaka@latest/dist/mux.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/shaka-player@2.5.10/dist/shaka-player.compiled.min.js"></script>
+    <script src="//cdn.jsdelivr.net/gh/clappr/dash-shaka-playback@latest/dist/dash-shaka-playback.external.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/cdnbye-shaka@latest"></script>
+    <style>
+        #video {
+            width: 720px;
+            margin-left: auto;
+            margin-right: auto;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+<div id="video"></div>
+<script>
+
+    var player = new Clappr.Player({
+        parentId: "#video",
+        source: "https://dash.akamaized.net/akamai/bbb_30fps/bbb_30fps.mpd",
+        plugins: [DashShakaPlayback],
+        shakaOnBeforeLoad: function(shakaPlayerInstance) {
+            if (P2PEngineShaka.isSupported()) {
+                new P2PEngineShaka(shakaPlayerInstance, {
+                    logLevel: 'debug',
+                });
+            }
+        }
+    });
+    player.play();
+
+</script>
+</body>
+</html>

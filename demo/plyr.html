@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Plyr player with shaka-p2p-engine</title>
+    <link rel="stylesheet" href="//cdn.plyr.io/3.5.6/plyr.css">
+    <script src="//cdn.plyr.io/3.5.6/plyr.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/cdnbye-shaka@latest/dist/mux.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/cdnbye-shaka@latest"></script>
+    <script src="//cdn.jsdelivr.net/npm/shaka-player@2.5.10/dist/shaka-player.compiled.min.js"></script>
+    <style>
+        #wrapper {
+            width: 720px;
+            margin-left: auto;
+            margin-right: auto;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+<div id="wrapper">
+    <video id="video" controls></video>
+</div>
+<script>
+
+    var video = document.getElementById("video");
+    var player = new Plyr(video);
+
+    shaka.polyfill.installAll();
+    var shakaPlayer = new shaka.Player(video);
+
+    if (P2PEngineShaka.isSupported()) {
+        new P2PEngineShaka(shakaPlayer, {
+            logLevel: 'debug',
+        });
+    }
+
+    shakaPlayer.load("https://dash.akamaized.net/akamai/bbb_30fps/bbb_30fps.mpd");
+
+</script>
+</body>
+</html>
