@@ -7,6 +7,8 @@
   <a href="https://www.jsdelivr.com/package/npm/cdnbye-shaka"><img src="https://data.jsdelivr.com/v1/package/npm/cdnbye-shaka/badge" alt="jsdelivr"></a>
 </p>
 
+CDNBye P2P engine for [Shaka Player](https://github.com/google/shaka-player).
+
 ## Features
 - WebRTC data channels for lightweight peer-to-peer communication with no plugins
 - Support live and VOD streams over HLS protocol(m3u8)
