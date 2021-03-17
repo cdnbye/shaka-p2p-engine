@@ -15,7 +15,7 @@ CDNBye P2P engine for [Shaka Player](https://github.com/google/shaka-player).
 - Support live and VOD streams over MPEG-DASH protocol
 - Support encrypted stream
 - Seamlessly fallback to normal server usage if a browser doesn't support WebRTC
-- Highly configurable for users
+- Compatible with all CDNs, agnostic to DRM and video codecs. No service side changes required.
 - Support most popular HTML5 players such as video.js、Clappr
 - Efficient scheduling policies to enhance the performance of P2P streaming
 - Use IP database to group up peers by ISP and regions
