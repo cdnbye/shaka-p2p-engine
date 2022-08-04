@@ -14,7 +14,7 @@
 <p id="info"></p>
 <script>
     const src = {
-        hls: 'https://test-streams.mux.dev/x36xhzz/url_2/193039199_mp4_h264_aac_ld_7.m3u8'
+        dash: 'https://dash.akamaized.net/akamai/bbb_30fps/bbb_30fps.mpd'
     };
     // config for p2p
     var p2pConfig = {
@@ -34,7 +34,15 @@
         width: 640,
         height: 360,
         hlsEngine: 'shakaplayer',
-        shakaCustomConfig:{}
+        shakaCustomConfig:{
+            streaming: {
+                bufferingGoal: 30,
+                useNativeHlsOnSafari: false,
+            },
+            manifest: {
+                defaultPresentationDelay: 30,
+            },
+        }
     };
     const elementID = 'rmp';
     const rmp = new RadiantMP(elementID);

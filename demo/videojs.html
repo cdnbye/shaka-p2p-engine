@@ -1,15 +1,21 @@
 <link href="//vjs.zencdn.net/5.19.2/video-js.css" rel="stylesheet">
 <video id=example-video width=600 height=300 class="video-js vjs-default-skin" controls></video>
-<script src="//cdn.jsdelivr.net/npm/shaka-player@2.5.10/dist/shaka-player.compiled.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/shaka-player@4.1.1/dist/shaka-player.compiled.min.js"></script>
 <script src="//vjs.zencdn.net/5.19.2/video.js"></script>
 <script src="//cdn.jsdelivr.net/npm/cdnbye-shaka@latest"></script>
 <script src="//cdn.jsdelivr.net/npm/videojs-shaka@0.4.5/dist/videojs-shaka.min.js"></script>
 <script>
     var player = videojs('example-video', {
         techOrder: ['shaka'],
-        // shaka: {
-        //     debug: true
-        // }
+        shaka: {
+            streaming: {
+                bufferingGoal: 30,
+                useNativeHlsOnSafari: false,
+            },
+            manifest: {
+                defaultPresentationDelay: 30,
+            },
+        }
     });
     new P2PEngineShaka(player.tech_.shaka_, {
         logLevel: 'debug'

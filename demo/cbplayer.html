@@ -9,7 +9,7 @@
 <div id="stats"></div>
 <script src="//cdn.jsdelivr.net/npm/cdnbye-shaka@latest"></script>
 <script src="//cdn.jsdelivr.net/npm/mux.js@5.6.7/dist/mux.min.js"></script>
-<script src="//cdn.jsdelivr.net/npm/shaka-player@2.5.10/dist/shaka-player.compiled.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/shaka-player@4.1.1/dist/shaka-player.compiled.min.js"></script>
 <script src="//cdn.jsdelivr.net/npm/cbplayer2@latest"></script>
 <script>
     var cb = new CBPlayer({
@@ -21,6 +21,13 @@
         },
         pluginOptions: {
             shaka: {
+                streaming: {
+                    bufferingGoal: 30,
+                    useNativeHlsOnSafari: false,
+                },
+                manifest: {
+                    defaultPresentationDelay: 30,
+                },
                 p2pConfig: {
                     logLevel: 'debug',
                     // Other p2pConfig options provided by CDNBye

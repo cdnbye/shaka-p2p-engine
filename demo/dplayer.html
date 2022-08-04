@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>DPlayer with shaka-p2p-engine</title>
     <script src="//cdn.jsdelivr.net/npm/mux.js@5.6.7/dist/mux.min.js"></script>
-    <script src="//cdn.jsdelivr.net/npm/shaka-player@2.5.10/dist/shaka-player.compiled.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/shaka-player@4.1.1/dist/shaka-player.compiled.min.js"></script>
     <script src="//cdn.jsdelivr.net/npm/cdnbye-shaka@latest"></script>
     <script src="//cdn.jsdelivr.net/npm/dplayer@1.26.0"></script>
     <style>
@@ -31,6 +31,15 @@
 
                     const src = video.src; // Shaka Player changes video.src to blob URL
                     const shakaPlayer = new shaka.Player(video);
+                    shakaPlayer.configure({
+                        streaming: {
+                            bufferingGoal: 30,
+                            useNativeHlsOnSafari: false,
+                        },
+                        manifest: {
+                            defaultPresentationDelay: 30,
+                        },
+                    });
                     if (P2PEngineShaka.isSupported()) {
                         new P2PEngineShaka(shakaPlayer, {
                             logLevel: 'debug',
