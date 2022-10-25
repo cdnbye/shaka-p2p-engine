@@ -6,7 +6,7 @@
     <script src="//cdn.jsdelivr.net/npm/@clappr/player@0.4.0/dist/clappr.min.js"></script>
     <script src="//cdn.jsdelivr.net/npm/mux.js@5.6.7/dist/mux.min.js"></script>
     <script src="//cdn.jsdelivr.net/npm/shaka-player@4.2.2/dist/shaka-player.compiled.min.js"></script>
-    <script src="//cdn.jsdelivr.net/gh/clappr/dash-shaka-playback@2.2.8/dist/dash-shaka-playback.external.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/clappr-shaka-playback@2.2.8/dist/clappr-shaka-playback.external.min.js"></script>
     <script src="//cdn.jsdelivr.net/npm/cdnbye-shaka@latest"></script>
     <style>
         #video {
@@ -23,8 +23,9 @@
 
     var player = new Clappr.Player({
         parentId: "#video",
-        source: "https://dash.akamaized.net/akamai/bbb_30fps/bbb_30fps.mpd",
-        plugins: [DashShakaPlayback],
+        // source: "https://dash.akamaized.net/akamai/bbb_30fps/bbb_30fps.mpd",
+        source: "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8",
+        plugins: [ClapprShakaPlayback],
         shakaOnBeforeLoad: function(shakaPlayerInstance) {
             if (P2PEngineShaka.isSupported()) {
                 new P2PEngineShaka(shakaPlayerInstance, {
