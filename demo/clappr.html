@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Clappr player with shaka-p2p-engine (MPEG-DASH only)</title>
+    <title>Clappr player with shaka-p2p-engine</title>
     <script src="//cdn.jsdelivr.net/npm/@clappr/player@0.4.0/dist/clappr.min.js"></script>
     <script src="//cdn.jsdelivr.net/npm/mux.js@5.6.7/dist/mux.min.js"></script>
     <script src="//cdn.jsdelivr.net/npm/shaka-player@4.2.2/dist/shaka-player.compiled.min.js"></script>
@@ -30,6 +30,7 @@
             if (P2PEngineShaka.isSupported()) {
                 new P2PEngineShaka(shakaPlayerInstance, {
                     logLevel: 'debug',
+                    // token: YOUR_TOKEN
                 });
             }
         }

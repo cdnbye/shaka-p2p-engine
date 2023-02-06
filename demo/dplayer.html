@@ -43,6 +43,7 @@
                     if (P2PEngineShaka.isSupported()) {
                         new P2PEngineShaka(shakaPlayer, {
                             logLevel: 'debug',
+                            // token: YOUR_TOKEN
                         });
                     }
                     const onError = function(error) { console.error("Error code", error.code, "object", error); }

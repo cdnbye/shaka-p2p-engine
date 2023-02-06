@@ -34,6 +34,7 @@
     if (P2PEngineShaka.isSupported()) {
         var engine = new P2PEngineShaka(player, {
             // logLevel: 'debug',
+            // token: YOUR_TOKEN
         });
         engine.on('stats', function (stats) {
             var total = stats.totalHTTPDownloaded + stats.totalP2PDownloaded;
