@@ -34,6 +34,8 @@
     if (P2PEngineShaka.isSupported()) {
         var engine = new P2PEngineShaka(player, {
             // logLevel: 'debug',
+            // trackerZone: 'hk',        // if using Hongkong tracker
+            // trackerZone: 'us',        // if using USA tracker
             // token: YOUR_TOKEN
         });
         engine.on('stats', function (stats) {

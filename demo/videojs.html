@@ -18,7 +18,9 @@
         }
     });
     new P2PEngineShaka(player.tech_.shaka_, {
-        logLevel: 'debug'
+        logLevel: 'debug',
+        // trackerZone: 'hk',        // if using Hongkong tracker
+        // trackerZone: 'us',        // if using USA tracker
         // token: YOUR_TOKEN
     })
     player.ready(function() {
