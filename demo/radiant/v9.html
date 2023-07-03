@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+</head>
+<body>
+<script src="https://cdn.radiantmediatechs.com/rmp/9.5.0/js/rmp.min.js"></script>
+<!-- P2PEngine -->
+<script src="//cdn.jsdelivr.net/npm/cdnbye-shaka@latest"></script>
+<div id="rmp"></div>
+<p id="version"></p>
+<h3>download info:</h3>
+<p id="info"></p>
+<script>
+    const src = {
+        dash: 'https://dash.akamaized.net/akamai/bbb_30fps/bbb_30fps.mpd'
+    };
+    // config for p2p
+    var p2pConfig = {
+        // logLevel: 'debug',
+        live: true,        // set to false in VOD mode
+        getStats: function (totalP2PDownloaded, totalP2PUploaded, totalHTTPDownloaded) {
+            var total = totalHTTPDownloaded + totalP2PDownloaded;
+            document.querySelector('#info').innerText = `p2p ratio: ${Math.round(totalP2PDownloaded/total*100)}%, saved traffic: ${totalP2PDownloaded}KB, uploaded: ${totalP2PUploaded}KB`;
+        },
+        // trackerZone: 'hk',        // if using Hongkong tracker
+        // trackerZone: 'us',        // if using USA tracker
+        // token: YOUR_TOKEN
+        // Other p2pConfig options provided by CDNBye
+    }
+    const settings = {
+        licenseKey: 'your-license-key',  // replace with your own license key
+        src: src,
+        width: 640,
+        height: 360,
+        hlsEngine: 'shakaplayer',
+        shakaCustomConfig:{
+            streaming: {
+                bufferingGoal: 30,
+                useNativeHlsOnSafari: false,
+            },
+            manifest: {
+                defaultPresentationDelay: 30,
+            },
+        }
+    };
+    const elementID = 'rmp';
+    const rmp = new RadiantMP(elementID);
+    rmp.one('shakainstancecreated', () => {
+        const shakaPlayerInstance = rmp.getShakaPlayerInstance();
+        if (P2PEngineShaka.isSupported()) {
+            new P2PEngineShaka(shakaPlayerInstance, p2pConfig);
+        }
+    });
+    rmp.init(settings);
+</script>
+</body>
+</html>
