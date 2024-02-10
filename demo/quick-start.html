@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Shaka Player with P2P Engine (HLS or MPEG-DASH)</title>
-    <script src="//cdn.jsdelivr.net/npm/mux.js@5.6.7/dist/mux.min.js"></script>
-    <script src="//cdn.jsdelivr.net/npm/shaka-player@4.1.1/dist/shaka-player.compiled.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/shaka-player@4.7.9/dist/shaka-player.compiled.min.js"></script>
     <script src="//cdn.jsdelivr.net/npm/cdnbye-shaka@latest"></script>
+<!--    <script src="../dist/shaka-p2p-engine.min.js"></script>-->
 </head>
 <body>
 <video id="video" width="640" controls autoplay></video>
@@ -14,42 +14,87 @@
 <p id="peers"></p>
 <p id="info"></p>
 <script>
-    shaka.polyfill.installAll();
-    document.querySelector('#version').innerText = `p2p version: ${P2PEngineShaka.version}`;
+    const manifestUri =
+        // 'https://dash.akamaized.net/akamai/bbb_30fps/bbb_30fps.mpd';
+        'https://storage.googleapis.com/shaka-demo-assets/angel-one/dash.mpd';
+        // 'https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8';
 
-    var video = document.getElementById("video");
-    var player = new shaka.Player(video);
-    player.configure({
-        streaming: {
-            bufferingGoal: 30,
-            useNativeHlsOnSafari: false,
-        },
-        manifest: {
-            defaultPresentationDelay: 30,
-        },
-    });
-    var onError = function(error) { console.error("Error code", error.code, "object", error); }
-    player.addEventListener("error", function(event) { onError(event.detail); });
-
-    if (P2PEngineShaka.isSupported()) {
-        var engine = new P2PEngineShaka(player, {
-            // logLevel: 'debug',
-            // trackerZone: 'hk',        // if using Hongkong tracker
-            // trackerZone: 'us',        // if using USA tracker
-            // token: YOUR_TOKEN
-        });
-        engine.on('stats', function (stats) {
-            var total = stats.totalHTTPDownloaded + stats.totalP2PDownloaded;
-            document.querySelector('#info').innerText = `p2p ratio: ${Math.round(stats.totalP2PDownloaded/total*100)}%   saved traffic: ${Math.round(stats.totalP2PDownloaded)}KB upload: ${Math.round(stats.totalP2PUploaded)}KB`;
-        })
-        engine.on('peers', function (peers) {
-            document.querySelector('#peers').innerText = `peers: ${peers.length}`;
-        })
+    function initApp() {
+        // Install built-in polyfills to patch browser incompatibilities.
+        shaka.polyfill.installAll();
+        // shaka.log.setLevel(shaka.log.Level.DEBUG);
+        // Check to see if the browser supports the basic APIs Shaka needs.
+        if (shaka.Player.isBrowserSupported()) {
+            // Everything looks good!
+            initPlayer();
+        } else {
+            // This browser does not have the minimum set of APIs we need.
+            console.error('Browser not supported!');
+        }
     }
 
-    player.load(
-        "https://dash.akamaized.net/akamai/bbb_30fps/bbb_30fps.mpd"
-    ).catch(onError);
+    async function initPlayer() {
+        // Create a Player instance.
+        const video = document.getElementById('video');
+        const player = new shaka.Player();
+        player.configure({
+            streaming: {
+                bufferingGoal: 30,
+                useNativeHlsOnSafari: false,
+            },
+            manifest: {
+                defaultPresentationDelay: 30,
+            },
+        });
+        await player.attach(video);
+
+        // Attach player to the window to make it easy to access in the JS console.
+        window.player = player;
+
+        // Listen for error events.
+        player.addEventListener('error', onErrorEvent);
+
+        // init p2p engine
+        if (P2PEngineShaka.isSupported()) {
+            const engine = new P2PEngineShaka(player, {
+                // logLevel: 'debug',
+                // trackerZone: 'hk',        // if using Hongkong tracker
+                // trackerZone: 'us',        // if using USA tracker
+                // token: YOUR_TOKEN
+            });
+            engine.on('stats', function (stats) {
+                var total = stats.totalHTTPDownloaded + stats.totalP2PDownloaded;
+                document.querySelector('#info').innerText = `p2p ratio: ${Math.round(stats.totalP2PDownloaded/total*100)}%   saved traffic: ${Math.round(stats.totalP2PDownloaded)}KB upload: ${Math.round(stats.totalP2PUploaded)}KB`;
+            })
+            engine.on('peers', function (peers) {
+                document.querySelector('#peers').innerText = `peers: ${peers.length}`;
+            })
+        }
+
+        // Try to load a manifest.
+        // This is an asynchronous process.
+        try {
+            await player.load(manifestUri);
+            // This runs if the asynchronous load is successful.
+            console.log('The video has now been loaded!');
+        } catch (e) {
+            // onError is executed if the asynchronous load fails.
+            onError(e);
+        }
+    }
+
+    function onErrorEvent(event) {
+        // Extract the shaka.util.Error object from the event.
+        onError(event.detail);
+    }
+
+    function onError(error) {
+        // Log the error.
+        console.error('Error code', error.code, 'object', error);
+    }
+
+    document.addEventListener('DOMContentLoaded', initApp);
+
 </script>
 </body>
 </html>

@@ -1,6 +1,6 @@
 **English | [简体中文](Readme_zh.md)**
 
-<h1 align="center"><a href="" target="_blank" rel="noopener noreferrer"><img width="250" src="https://www.cdnbye.com/logo.png" alt="cdnbye logo"></a></h1>
+<h1 align="center"><a href="" target="_blank" rel="noopener noreferrer"><img width="250" src="https://www.swarmcloud.net/img/logo.png" alt="cdnbye logo"></a></h1>
 <h4 align="center">Let your viewers become your unlimitedly scalable CDN.</h4>
 <p align="center">
   <a href="https://www.npmjs.com/package/cdnbye-shaka"><img src="https://img.shields.io/npm/v/cdnbye-shaka.svg?style=flat" alt="npm"></a>
@@ -27,14 +27,14 @@ The first web peer will serve as a seed, if no one else in the same channel.
 ## Browser Support
 WebRTC has already been incorporated into the HTML5 standard and it is broadly deployed in modern browsers. The compatibility of CDNBye depends on the browser support of WebRTC and Shaka Player. Please note that iOS Safari "Mobile" does not support the MediaSource API.
 
- Compatibility|Chrome | Firefox | Mac Safari| Android Wechat/QQ | Opera | Edge | IE | iOS Safari | 
+ Compatibility|Chrome | Firefox | Mac Safari| Android Wechat/QQ | Opera | Edge | IE | iOS Safari |
 :-: | :-: | :-: | :-: | :-: | :-: | :-:| :-:| :-:
 WebRTC | ✔ | ✔ | ✔ | ✔ | ✔ | ✔ | ❌ | ✔ |
 Shaka | ✔ | ✔ | ✔ | ✔ | ✔ | ✔ | ✔ | ❌ |
 CDNBye | ✔ | ✔ | ✔ | ✔ | ✔ | ✔ | ❌ | ❌ |
 
 ## Include
-Include the pre-built script of latest version: 
+Include the pre-built script of latest version:
 ```html
 <script src="https://cdn.jsdelivr.net/npm/cdnbye-shaka@latest"></script>
 ```
@@ -46,7 +46,7 @@ See [API.md](https://www.cdnbye.com/en/views/shaka/API.html)
 Register your domain in `https://oms.cdnbye.com`, where you can view p2p-related information.
 
 ## Related Projects
-- [hlsjs-p2p-engine](https://github.com/cdnbye/hlsjs-p2p-engine) - Web Video Delivery Technology with No Plugins for hls.js.
+- [hls-p2p-engine](https://github.com/swarm-cloud/hls-p2p-engine) - Web Video Delivery Technology with No Plugins for hls streaming.
 - [dashjs-p2p-engine](https://github.com/cdnbye/dashjs-p2p-engine) - Web Video Delivery Technology with No Plugins for MPEG-dash.
 - [mp4-p2p-engine](https://github.com/cdnbye/mp4-p2p-engine) - Web Video Delivery Technology with No Plugins for MP4.
 
