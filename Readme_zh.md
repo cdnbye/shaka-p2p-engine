@@ -4,8 +4,8 @@
 <h4 align="center">Save Your Bandwidth using WebRTC.</h4>
 <h4 align="center">视频网站省流量&加速插件.</h4>
 <p align="center">
-  <a href="https://www.npmjs.com/package/cdnbye-shaka"><img src="https://img.shields.io/npm/v/cdnbye-shaka.svg?style=flat" alt="npm"></a>
-  <a href="https://www.jsdelivr.com/package/npm/cdnbye-shaka"><img src="https://data.jsdelivr.com/v1/package/npm/cdnbye-shaka/badge" alt="jsdelivr"></a>
+  <a href="https://www.npmjs.com/package/@swarmcloud/shaka"><img src="https://img.shields.io/npm/v/@swarmcloud/shaka.svg?style=flat" alt="npm"></a>
+  <a href="https://www.jsdelivr.com/package/npm/@swarmcloud/shaka"><img src="https://data.jsdelivr.com/v1/package/npm/@swarmcloud/shaka/badge" alt="jsdelivr"></a>
 </p>
 
 ## 优势
@@ -34,7 +34,7 @@ CDNBye | ✔ | ✔ | ✔ | ✔ | ✔ | ✔ | ❌ | ❌ |
 ## 集成
 通过script标签引入最新版本：
 ```html
-<script src="https://cdn.jsdelivr.net/npm/cdnbye-shaka@latest"></script>
+<script src="https://cdn.jsdelivr.net/npm/@swarmcloud/shaka"></script>
 ```
 
 ## API文档
