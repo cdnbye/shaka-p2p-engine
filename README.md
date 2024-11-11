@@ -43,7 +43,7 @@ Include the pre-built script of latest version:
 See [API.md](https://docs.swarmcloud.net/shaka/API)
 
 ## Console
-Register your domain in `https://oms.cdnbye.com`, where you can view p2p-related information.
+Register your domain in [dashboard](https://dash.swarmcloud.net), where you can view p2p-related information.
 
 ## Related Projects
 - [hls-p2p-engine](https://github.com/swarm-cloud/hls-p2p-engine) - Web Video Delivery Technology with No Plugins for hls streaming.
